@@ -1,0 +1,28 @@
+<h1><%= @my_thread.title %></h1>
+
+
+<p><%= link_to "掲示板一覧へ戻る", my_threads_path %></p>
+<br>
+<h2>コメント一覧</h2>
+  <ul>
+    <% @my_thread.comments.each do |comment| %>
+    <li>
+      <%= User.find(id = comment.user_id).name%> |    
+      <%= comment.updated_at %> |
+      <% if User.find(id = comment.user_id).id == current_user.id %>
+        <%= link_to "編集", edit_my_thread_comment_path(comment.my_thread_id, comment.id) %>
+        <%= link_to "削除", my_thread_comment_path(comment.my_thread_id, comment.id), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+      <% end %>
+      <br>
+      <%= comment.text %><hr>
+    </li>
+    <% end %>
+    <li>
+
+    <%= form_for [@my_thread, @my_thread.comments.build] do |f| %>
+      <%= f.text_area :text %>
+    　<%= f.submit :レスポンスの投稿%>
+    <% end %>
+  　</li>
+  </ul>
+

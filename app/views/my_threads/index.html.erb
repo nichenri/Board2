@@ -1,0 +1,34 @@
+<h1>掲示板へようこそ</h1>
+
+
+<p><%= link_to "新しいスレッドの作成", new_my_thread_path %></p>
+
+<h2>掲示板一覧</h2>
+
+<table rules="all">
+    <thead>
+      <tr>
+        <th>スレッド名</th>
+        <th>スレッド作成者</th>
+        <th>掲載日時</th>
+        <th>編集 削除</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @my_threads.each do |my_thread| %>
+      <tr>
+        <td><%= link_to my_thread.title, my_thread_path(my_thread.id) %> </td>
+        <td><%= User.find(id = my_thread.user_id).name %></td>
+        <td><%= my_thread.created_at %></td>
+        <td>
+          <% if User.find(id = my_thread.user_id).id == current_user.id %>
+            <%= link_to "編集", edit_my_thread_path(my_thread.id) %>
+            <%= link_to "削除", my_thread_path(my_thread.id), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
+

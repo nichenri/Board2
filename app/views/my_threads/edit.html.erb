@@ -1,0 +1,15 @@
+<h1> スレッド名の編集 </h1>
+
+<p><%= link_to "掲示板一覧へ戻る", my_threads_path %></p>
+<br>
+<%= form_for @my_thread do |f| %>
+  <p>
+  <%= f.label :新しいスレッド名 %><br>
+  <%= f.text_field :title %>
+  </p>
+
+  <p>
+  <%= f.submit :スレッド名の編集 %>
+  </p>
+
+<% end %>

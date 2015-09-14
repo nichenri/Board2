@@ -1,0 +1,15 @@
+<h1> コメントの編集 </h1>
+
+<p><%= link_to "スレッド画面一覧へ戻る", my_thread_path(@comment.my_thread_id) %></p>
+<br>
+<%= form_for @comment, :url => my_thread_comment_path do |f| %>
+  <p>
+  <%= f.label :新しいコメント %><br>
+  <%= f.text_field :text %>
+  </p>
+
+  <p>
+  <%= f.submit :コメントの編集 %>
+  </p>
+
+<% end %>

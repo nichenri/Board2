@@ -7,9 +7,9 @@
   <ul>
     <% @my_thread.comments.each do |comment| %>
     <li>
-      <%= User.find(id = comment.user_id).name%> |    
+      <%= comment.user.name%> |    
       <%= comment.updated_at %> |
-      <% if User.find(id = comment.user_id).id == current_user.id %>
+      <% if comment.user.id == current_user.id %>
         <%= link_to "編集", edit_my_thread_comment_path(comment.my_thread_id, comment.id) %>
         <%= link_to "削除", my_thread_comment_path(comment.my_thread_id, comment.id), method: :delete, data: {confirm: "本当に削除しますか？"} %>
       <% end %>

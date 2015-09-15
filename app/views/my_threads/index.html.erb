@@ -19,10 +19,10 @@
       <% @my_threads.each do |my_thread| %>
       <tr>
         <td><%= link_to my_thread.title, my_thread_path(my_thread.id) %> </td>
-        <td><%= User.find(id = my_thread.user_id).name %></td>
+        <td><%= my_thread.user.name %></td>
         <td><%= my_thread.created_at %></td>
         <td>
-          <% if User.find(id = my_thread.user_id).id == current_user.id %>
+          <% if my_thread.user.id == current_user.id %>
             <%= link_to "編集", edit_my_thread_path(my_thread.id) %>
             <%= link_to "削除", my_thread_path(my_thread.id), method: :delete, data: {confirm: "本当に削除しますか？"} %>
           <% end %>

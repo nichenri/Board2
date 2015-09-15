@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
 
+  before_action :set_my_thread
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
-    @my_thread = MyThread.find(params[:my_thread_id])
-    @comment = current_user.comments.new(comment_params)
+    @comment = @my_thread.comments.new(comment_params)
     if @comment.save 
       redirect_to my_thread_path(@my_thread.id)
     else 
@@ -35,11 +35,15 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:text).merge(my_thread_id: @my_thread.id)
+      params.require(:comment).permit(:text).merge(user_id: current_user.id)
+    end
+
+    def set_my_thread
+      @my_thread = MyThread.find(params[:my_thread_id])
     end
 
     def set_comment
-      @comment = @my_thread.comment.find(params[:id])
+      @comment = @my_thread.comments.find(params[:id])
     end
 
 end
